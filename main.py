@@ -1,12 +1,33 @@
+# Em main.py
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware 
 from pydantic import BaseModel
 from agents import initial_agent, diagnosis_agent, escalation_agent, feedback_agent
-from services import crm_api, ticketing_api, internal_db # Importamos só para garantir
+from services import crm_api, ticketing_api, internal_db
 
 app = FastAPI(
     title="Customer Support App",
     description="Sistema de atendimento automatizado com orquestração de agentes de IA."
 )
+
+# Configura o CORS para permitir que o frontend acesse a API
+origins = [
+    "http://localhost",
+    "http://localhost:3000",
+    "http://localhost:8080",
+    # Adicione aqui a URL de preview do Lovable se necessário
+    "*" # Para testes locais, "*" permite tudo
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"], # Permite todos os métodos (GET, POST, etc)
+    allow_headers=["*"], # Permite todos os cabeçalhos
+)
+# ----------------------------------------
+
 
 # --- Modelos de Requisição (Entrada) ---
 class SupportRequest(BaseModel):
