@@ -1,0 +1,13 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+# Arquivos de ambiente virtual e dependências
+.venv/
+venv/
+*.venv/
+
+# Arquivos de ambiente (contêm segredos!)
+.env
+*.env
+
+# Arquivos de cache do Python
+__pycache__/
+*.pyc
